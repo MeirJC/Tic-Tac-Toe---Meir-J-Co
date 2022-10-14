@@ -1,10 +1,10 @@
 // TO-DO is marked with !#! - UPDATES will be marked with @!@
 // !#! game will end in a tie when counter = size*size @!@ DONE added to the inputXO function to be checked after each input
 // !#! when setboard called again game board reset but doesnt update display @!@ DONE with the resetBoard funtion
-// !#! Reset button @!@ Added and tested
+// !#! Reset button @!@ DONE Added and tested
 // !#! display winner
-// !#! display tie
-// !#! give multiple board size option selector/ buttons
+// !#! display tie @!@ DONE
+// !#! give multiple board size option selector/ buttons @!@ DONE
 
 //------------------------------------------------------------------------
 //==================INITAL ENVIORMENT SETUP===============================
@@ -14,17 +14,20 @@
 // counter - turn counter. changes player by binary seletion of counter%2
 //------------------------------------------------------------------------
 const grid = document.querySelector(".gridContainer");
-let size = 3;
-let counter = 0;
-let gameBoard = setBoard(size);
-// maybe be used for randomizing who starts - to be concidered
-let playerA = "X";
+let size = 3; //initial Board size
+let counter = 0; // keep turn count
+let gameBoard = setBoard(size); // set the JS game board 2D array
+let playerA = "X"; // player 1 & 2 charaters. would switch in case of wining so winner start next game
 let playerB = "O";
-let XwinCount = 0;
-let OwinCount = 0;
-let tieCount = 0;
-let stopInput = false;
-let easyMode = false;
+let XwinCount = 0; // count win for X
+let OwinCount = 0; // count win for O
+let tieCount = 0; // count ties
+let stopInput = false; // switch to stop input after a win
+let easyMode = false; // switch to toggle easy/pro mode (3 to win vs whole board across)
+// ------------ SCORE KEEP
+const xTotal = document.querySelector("#xCount");
+const oTotal = document.querySelector("#oCount");
+const tieTotal = document.querySelector("#tieCount");
 // setting the CSS Grid board dimension by the "size" parameter
 grid.setAttribute(
   "style",
@@ -45,8 +48,8 @@ for (let i = 0; i < size ** 2; i++) {
     }
   });
 }
-// Reset the board to the initial state - gmaeBoard for the JS array the the
-// elementList-->forEach for the html content
+// Reset the board to the initial state - gameBoard for the JS array the the
+// (elementList --> forEach) for the html content
 function resetBoard() {
   gameBoard = setBoard(size);
   let elementList = document.querySelectorAll(".grid-item");
@@ -58,7 +61,6 @@ function deleteAllGridChildren() {
   grid.innerHTML = "";
 }
 // Generate new grid (after clearing)
-// to change grid>>  deleteAllGridChildren() --> change size parameter --> newBoard(size)
 function newBoard(size) {
   grid.setAttribute(
     "style",
@@ -86,8 +88,6 @@ const resetButton = document.querySelector("#reset");
 resetButton.addEventListener("click", () => {
   resetBoard();
   stopInput = false;
-
-  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
 });
 // 3 BUTTON - Change grid to 3X3 and created a new grid
 const threeButton = document.querySelector("#three");
@@ -99,7 +99,6 @@ threeButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
-  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
 });
 // 4 BUTTON - Change grid to 4X4 and created a new grid
 const fourButton = document.querySelector("#four");
@@ -110,7 +109,6 @@ fourButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
-  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
 });
 // 5 BUTTON - Change grid to 5X5 and created a new grid
 const fiveButton = document.querySelector("#five");
@@ -121,7 +119,6 @@ fiveButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
-  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
 });
 // 6 BUTTON - Change grid to 6X6 and created a new grid
 const sixButton = document.querySelector("#six");
@@ -132,7 +129,6 @@ sixButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
-  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
 });
 // 7 BUTTON - Change grid to 7X7 and created a new grid
 const sevenButton = document.querySelector("#seven");
@@ -143,13 +139,21 @@ sevenButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
-  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
+});
+// EASY MODE - (Need only 3 adjecent to win)
+const easyButton = document.querySelector("#easy");
+easyButton.addEventListener("click", () => {
+  easyMode = true;
+  console.log("easy mode on");
+});
+// PRO MODE - (Need full row to win)
+const proButton = document.querySelector("#pro");
+proButton.addEventListener("click", () => {
+  easyMode = false;
+  console.log("pro mode on");
 });
 //------------------------------------------------------------------------
-// ------------ SCORE KEEP
-const xTotal = document.querySelector("#xCount");
-const oTotal = document.querySelector("#oCount");
-const tieTotal = document.querySelector("#tieCount");
+
 //------------------------------------------------------------------------
 //=============================TESTS======================================
 //------------------------------------------------------------------------
@@ -296,25 +300,13 @@ function setBoard(size) {
 }
 function turnSwitch(count) {
   counter += 1;
-  console.log("turnSwitch", count);
   return count % 2 === 0 ? playerA : playerB;
-}
-
-function replacePlayer(winner) {
-  if (winner === playerA) {
-    return;
-  } else {
-    playerB = playerA;
-    playerA = winner;
-  }
-  return;
 }
 
 function inputXO(i) {
   if (stopInput === false) {
     let cell = document.getElementById(`${i}`);
     let player = turnSwitch(counter);
-    console.log("counter inside inputXO", counter, "current player =", player);
     cell.innerText = player;
     if (cell.innerText !== "") {
       for (let j = 0; j < size; j++) {
@@ -328,7 +320,6 @@ function inputXO(i) {
         console.log(`player: ${player}`);
         console.log("WIN!!!");
         stopInput = true;
-        // replacePlayer(player);
         if (player === "X") {
           playerA = "X";
           playerB = "O";
@@ -345,13 +336,8 @@ function inputXO(i) {
         tieCount++;
         tieTotal.innerText = tieCount;
       }
-      console.log(
-        `XwinCount${XwinCount} OwinCount ${OwinCount} tieCount ${tieCount}`
-      );
     }
   }
-  // !!!REMOVE LATER!!!
-  console.log(`inside inputXO i=${i} counter = ${counter}`);
 }
 //------------------------------------------------------------------------
 //==============================GAMEPLAY==================================
@@ -373,48 +359,7 @@ function winStatus(board) {
   }
   return isWin;
 }
-//------------------------------------------------------------------------
-//=============================IN PROGRESS================================
-//------------------------------------------------------------------------
-// arrTest[size][win-direction]
-//------------------------------------------------------------------------
-let arrTest3Row = [
-  ["", "O", ""],
-  ["X", "X", "X"],
-  ["", "", "O"],
-];
-let arrTest3Col = [
-  ["0", "X", ""],
-  ["", "X", "0"],
-  ["", "X", ""],
-];
-let arrTest3DiagLR = [
-  ["O", "X", "O"],
-  ["", "O", ""],
-  ["X", "", "O"],
-];
-let arrTes3tDiagRL = [
-  ["O", "", "X"],
-  ["X", "X", ""],
-  ["X", "", "O"],
-];
-let arrTest3NoWin = [
-  ["X", "O", "O"],
-  ["O", "O", "X"],
-  ["X", "X", "O"],
-];
-let arrTest44 = [
-  [1, 2, 1, 1],
-  [0, 0, 0, 1],
-  [5, 1, 5, 1],
-  [1, 1, 1, 1],
-];
 
-// console.log(winStatus(arrTest3Row));
-// console.log(winStatus(arrTest3Col));
-// console.log(winStatus(arrTest3DiagLR));
-// console.log(winStatus(arrTes3tDiagRL));
-// console.log(winStatus(arrTest3NoWin));
-// console.log(setBoard(3));
-// console.log(setBoard(4));
-// console.log(setBoard(5));
+//------------------------------------------------------------------------
+//========================================================================
+//------------------------------------------------------------------------
