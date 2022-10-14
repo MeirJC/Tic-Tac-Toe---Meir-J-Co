@@ -1,17 +1,30 @@
-// TO-DO is marked with !#!#!#!
+// TO-DO is marked with !#! - UPDATES will be marked with @!@
+// !#! game will end in a tie when counter = size*size @!@ DONE added to the inputXO function to be checked after each input
+// !#! when setboard called again game board reset but doesnt update display @!@ DONE with the resetBoard funtion
+// !#! Reset button @!@ Added and tested
+// !#! display winner
+// !#! display tie
+// !#! give multiple board size option selector/ buttons
+
 //------------------------------------------------------------------------
 //==================INITAL ENVIORMENT SETUP===============================
 //------------------------------------------------------------------------
 // grid - grid container that holds the game board
 // size - game board dimensions (for both dimension X/Y axis)
 // counter - turn counter. changes player by binary seletion of counter%2
-// !#!#!#!   game will end in a tie when counter = size*size
 //------------------------------------------------------------------------
 const grid = document.querySelector(".gridContainer");
-const size = 3;
+let size = 3;
 let counter = 0;
-const gameBoard = setBoard(size);
-// !#!#!#! when setboard called again game voard reset but doesnt update display
+let gameBoard = setBoard(size);
+// maybe be used for randomizing who starts - to be concidered
+let playerA = "X";
+let playerB = "O";
+let XwinCount = 0;
+let OwinCount = 0;
+let tieCount = 0;
+let stopInput = false;
+let easyMode = false;
 // setting the CSS Grid board dimension by the "size" parameter
 grid.setAttribute(
   "style",
@@ -32,6 +45,111 @@ for (let i = 0; i < size ** 2; i++) {
     }
   });
 }
+// Reset the board to the initial state - gmaeBoard for the JS array the the
+// elementList-->forEach for the html content
+function resetBoard() {
+  gameBoard = setBoard(size);
+  let elementList = document.querySelectorAll(".grid-item");
+  elementList.forEach((element) => (element.innerText = ""));
+  counter = 0;
+}
+// Clear (delete) all grid items - needed when changing size of the board
+function deleteAllGridChildren() {
+  grid.innerHTML = "";
+}
+// Generate new grid (after clearing)
+// to change grid>>  deleteAllGridChildren() --> change size parameter --> newBoard(size)
+function newBoard(size) {
+  grid.setAttribute(
+    "style",
+    `grid-template: repeat(${size}, 1fr) / repeat(${size}, 1fr);`
+  );
+  for (let i = 0; i < size ** 2; i++) {
+    let element = document.createElement("div");
+    element.innerText = "";
+    element.setAttribute("id", i);
+    element.setAttribute("class", "grid-item");
+    grid.append(element);
+    element.addEventListener("click", (e) => {
+      console.log(`hi i am ${i}`);
+      if (element.innerText === "") {
+        inputXO(i);
+      }
+    });
+  }
+}
+//------------------------------------------------------------------------
+//=======================BUTTONS & ELEMENTS===============================
+//------------------------------------------------------------------------
+// RESET BUTTON - Reset the game board
+const resetButton = document.querySelector("#reset");
+resetButton.addEventListener("click", () => {
+  resetBoard();
+  stopInput = false;
+
+  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
+});
+// 3 BUTTON - Change grid to 3X3 and created a new grid
+const threeButton = document.querySelector("#three");
+
+threeButton.addEventListener("click", () => {
+  deleteAllGridChildren();
+  size = 3;
+  counter = 0;
+  newBoard(size);
+  stopInput = false;
+  gameBoard = setBoard(size);
+  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
+});
+// 4 BUTTON - Change grid to 4X4 and created a new grid
+const fourButton = document.querySelector("#four");
+fourButton.addEventListener("click", () => {
+  deleteAllGridChildren();
+  size = 4;
+  counter = 0;
+  newBoard(size);
+  stopInput = false;
+  gameBoard = setBoard(size);
+  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
+});
+// 5 BUTTON - Change grid to 5X5 and created a new grid
+const fiveButton = document.querySelector("#five");
+fiveButton.addEventListener("click", () => {
+  deleteAllGridChildren();
+  size = 5;
+  counter = 0;
+  newBoard(size);
+  stopInput = false;
+  gameBoard = setBoard(size);
+  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
+});
+// 6 BUTTON - Change grid to 6X6 and created a new grid
+const sixButton = document.querySelector("#six");
+sixButton.addEventListener("click", () => {
+  deleteAllGridChildren();
+  size = 6;
+  counter = 0;
+  newBoard(size);
+  stopInput = false;
+  gameBoard = setBoard(size);
+  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
+});
+// 7 BUTTON - Change grid to 7X7 and created a new grid
+const sevenButton = document.querySelector("#seven");
+sevenButton.addEventListener("click", () => {
+  deleteAllGridChildren();
+  size = 7;
+  counter = 0;
+  newBoard(size);
+  stopInput = false;
+  gameBoard = setBoard(size);
+  console.log(`size ${size} counter ${counter}  gameBoard$`, gameBoard);
+});
+//------------------------------------------------------------------------
+// ------------ SCORE KEEP
+const xTotal = document.querySelector("#xCount");
+const oTotal = document.querySelector("#oCount");
+const tieTotal = document.querySelector("#tieCount");
 //------------------------------------------------------------------------
 //=============================TESTS======================================
 //------------------------------------------------------------------------
@@ -84,6 +202,80 @@ function diagonalRL(board) {
   }
   return false;
 }
+
+//------------------------------------------------------------------------
+//=============================TESTS ONLY 3 ++++==========================
+//------------------------------------------------------------------------
+//All the funcions to check win status by scenarios (row/column/both diagonal)
+//------------------------------------------------------------------------
+
+// ROWS (ONLY ADJECENT 3)
+function checkRows3(board) {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board.length - 2; j++) {
+      if (
+        board[i][j] === board[i][j + 1] &&
+        board[i][j] === board[i][j + 2] &&
+        board[i][j] !== ""
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+// COLS (ONLY ADJECENT 3)
+function checkCols3(board) {
+  for (let i = 0; i < board.length - 2; i++) {
+    for (let j = 0; j < board.length; j++) {
+      if (
+        board[i][j] === board[i + 1][j] &&
+        board[i + 1][j] === board[i + 2][j] &&
+        board[i][j] !== ""
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+//Diagonal L to R (ONLY ADJECENT 3)
+function diagonalLR3(board) {
+  for (let i = 0; i < board.length - 2; i++) {
+    for (let j = 0; j < board.length - 2; j++) {
+      if (
+        board[i][j] === board[i + 1][j + 1] &&
+        board[i + 1][j + 1] === board[i + 2][j + 2] &&
+        board[i][j] !== ""
+      ) {
+        console.log(i, j);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+//Diagonal R to L (ONLY ADJECENT 3)
+function diagonalRL3(board) {
+  for (let i = 0; i < board.length - 2; i++) {
+    for (let j = 0; j < board.length - 2; j++) {
+      if (
+        board[i][board.length - 1 - j] === board[i + 1][board.length - 2 - j] &&
+        board[i + 1][board.length - 2 - j] ===
+          board[i + 2][board.length - 3 - j] &&
+        board[i][board.length - 1 - j] !== ""
+      ) {
+        console.log(i, board.length - 1 - j);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 //------------------------------------------------------------------------
 //==============================GAMEPLAY==================================
 //------------------------------------------------------------------------
@@ -105,22 +297,57 @@ function setBoard(size) {
 function turnSwitch(count) {
   counter += 1;
   console.log("turnSwitch", count);
-  return count % 2 === 0 ? "X" : "O";
+  return count % 2 === 0 ? playerA : playerB;
 }
+
+function replacePlayer(winner) {
+  if (winner === playerA) {
+    return;
+  } else {
+    playerB = playerA;
+    playerA = winner;
+  }
+  return;
+}
+
 function inputXO(i) {
-  let cell = document.getElementById(`${i}`);
-  let player = turnSwitch(counter);
-  cell.innerText = player;
-  if (cell.innerText !== "") {
-    for (let j = 0; j < size; j++) {
-      for (let k = 0; k < size; k++) {
-        if (j * size + k === i) {
-          gameBoard[j][k] = player;
+  if (stopInput === false) {
+    let cell = document.getElementById(`${i}`);
+    let player = turnSwitch(counter);
+    console.log("counter inside inputXO", counter, "current player =", player);
+    cell.innerText = player;
+    if (cell.innerText !== "") {
+      for (let j = 0; j < size; j++) {
+        for (let k = 0; k < size; k++) {
+          if (j * size + k === i) {
+            gameBoard[j][k] = player;
+          }
         }
       }
-    }
-    if (winStatus(gameBoard)) {
-      console.log("WIN!!!");
+      if (winStatus(gameBoard)) {
+        console.log(`player: ${player}`);
+        console.log("WIN!!!");
+        stopInput = true;
+        // replacePlayer(player);
+        if (player === "X") {
+          playerA = "X";
+          playerB = "O";
+          XwinCount++;
+          xTotal.innerText = XwinCount;
+        } else {
+          playerA = "O";
+          playerB = "X";
+          OwinCount++;
+          oTotal.innerText = OwinCount;
+        }
+      } else if (counter === size ** 2) {
+        console.log("TIE!!!");
+        tieCount++;
+        tieTotal.innerText = tieCount;
+      }
+      console.log(
+        `XwinCount${XwinCount} OwinCount ${OwinCount} tieCount ${tieCount}`
+      );
     }
   }
   // !!!REMOVE LATER!!!
@@ -130,13 +357,13 @@ function inputXO(i) {
 //==============================GAMEPLAY==================================
 //------------------------------------------------------------------------
 // winStatus - sending the gamrboard to all the tests
-// !#!#!#! display winner
-// !#!#!#! display tie
-// !#!#!#! add reset button
-// !#!#!#! give multiple board size option
+
 //------------------------------------------------------------------------
 function winStatus(board) {
-  const tests = [checkRows, checkCols, diagonalLR, diagonalRL];
+  let tests = [checkRows, checkCols, diagonalLR, diagonalRL];
+  if (easyMode === true) {
+    tests = [checkRows3, checkCols3, diagonalLR3, diagonalRL3];
+  }
   let isWin = false;
   for (let i = 0; i < tests.length; i++) {
     if (tests[i](board)) {

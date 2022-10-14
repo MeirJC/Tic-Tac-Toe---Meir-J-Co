@@ -7,26 +7,19 @@
     <link rel="stylesheet" href="./normalize.css" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" defer></script>
-    <!-- <script src="./arrToRegNums.js" defer></script> -->
-    <style>
-      .gridContainer {
-        width: 60vh;
-        height: 60vh;
-        border: 2px solid black;
-        display: grid;
-        gap: 10px;
-        grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-        grid-auto-flow: row; /* or 'row', 'row dense', 'column dense' */
-        text-align: center;
-      }
-      .grid-item {
-        border: 4px solid red;
-        background-color: cornflowerblue;
-      }
-    </style>
     <title>Document</title>
   </head>
   <body>
-    <div class="gridContainer"></div>
+    <section class="gridContainer"></section>
+    <button id="reset" type="submit">RESET</button>
+    <button id="three" type="submit">3X3</button>
+    <button id="four" type="submit">4X4</button>
+    <button id="five" type="submit">5X5</button>
+    <button id="six" type="submit">6X6</button>
+    <button id="seven" type="submit">7X7</button>
+    <p class="test">Test Text !!!FSDFSDFSDFSDF</p>
+    <h3 class="score">X Wins <span id="xCount">0</span></h3>
+    <h3 class="score">Tie <span id="tieCount">0</span></h3>
+    <h3 class="score">O Wins <span id="oCount">0</span></h3>
   </body>
 </html>
