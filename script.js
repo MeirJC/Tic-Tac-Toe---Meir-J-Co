@@ -30,7 +30,8 @@ let easyMode = false; // switch to toggle easy/pro mode (3 to win vs whole board
 
 const xTotal = document.querySelector("#xCount");
 const oTotal = document.querySelector("#oCount");
-const tieTotal = document.querySelector("#tieCount");
+const tieTotal = document.querySelector(".tieCount");
+const tieTotalMobile = document.querySelector(".tieCountMobile");
 // setting the CSS Grid board dimension by the "size" parameter
 grid.setAttribute(
   "style",
@@ -92,6 +93,12 @@ function newBoard(size) {
 // RESET BUTTON - Reset the game board
 const resetButton = document.querySelector("#reset");
 resetButton.addEventListener("click", () => {
+  resetBoard();
+  stopInput = false;
+});
+// RESET BUTTON MOBILE- Reset the game board
+const resetButtonMobile = document.querySelector("#reset-mobile");
+resetButtonMobile.addEventListener("click", () => {
   resetBoard();
   stopInput = false;
 });
@@ -350,6 +357,7 @@ function inputXO(i) {
         console.log("TIE!!!");
         tieCount++;
         tieTotal.innerText = tieCount;
+        tieTotalMobile.innerText = tieCount;
       }
     }
   }

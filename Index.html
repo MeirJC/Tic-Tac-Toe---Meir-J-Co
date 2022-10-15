@@ -19,7 +19,8 @@
     <main id="main" class="flex-col-center">
       <section id="page-conatainer" class="flex-col-center">
         <header>
-          <h1 class="site-font">Ultimate Tic-Tac-Toe</h1>
+          <h1 class="site-font">Ultimate Tic&#8209;Tac&#8209;Toe</h1>
+
           <nav class="flex-row-center">
             <p>Grid Size</p>
             <button id="three" type="submit">3X3</button>
@@ -28,37 +29,45 @@
             <button id="six" type="submit">6X6</button>
             <button id="seven" type="submit">7X7</button>
           </nav>
+          <nav id="mode-switch" class="flex-row-center">
+            <button id="easy" type="submit">Easy Mode</button>
+            <p>(series of 3 to win)</p>
+            <button id="pro" type="submit">Pro Mode</button>
+            <p>(all across the board to win)</p>
+          </nav>
         </header>
         <section id="main-content-container" class="flex-row-center">
-          <div id="main-content-item1" class="player-info">
-            <div class="player-image player-X-image">
+          <div id="main-content-item1" class="player-info flex-col-center">
+            <div class="player-image player-X-image flex-col-center">
               <img src="./images/blackNinja1flip.png" alt="Player 1 Photo" />
             </div>
             <h2 class="player-name">Player X</h2>
+            <h3 class="score">X Wins <span id="xCount">0</span></h3>
           </div>
 
           <div id="main-content-item2" class="flex-col-center">
             <div class="gridContainer"></div>
-            <button id="reset" type="submit">RESET</button>
-            <div id="scores" class="flex-row-center">
-              <h3 class="score">X Wins <span id="xCount">0</span></h3>
-              <h3 class="score">Tie <span id="tieCount">0</span></h3>
-              <h3 class="score">O Wins <span id="oCount">0</span></h3>
+            <!-- ----------DESKTOP RESET BUTTON AND TIE COUNT---------- -->
+            <button id="reset" type="submit" class="mobile-hide">RESET</button>
+            <div id="scores" class="flex-row-center mobile-hide">
+              <h3 class="score">Tie <span class="tieCount">0</span></h3>
             </div>
           </div>
-
-          <div id="main-content-item3" class="player-info">
-            <div class="player-image player-O-image">
+          <!-- ----------MOBILE RESET BUTTON AND TIE COUNT---------- -->
+          <div class="flex-col-center mobile-show">
+            <button id="reset-mobile" type="submit">RESET</button>
+            <div id="scores-mobile" class="flex-row-center">
+              <h3 class="score">Tie <span class="tieCountMobile">0</span></h3>
+            </div>
+          </div>
+          <!-- ----------------------------------------------------- -->
+          <div id="main-content-item3" class="player-info flex-col-center">
+            <div class="player-image player-O-image flex-col-center">
               <img src="./images/whiteNinja1.png" alt="Player 2 Photo" />
             </div>
             <h2 class="player-name">Player O</h2>
+            <h3 class="score">O Wins <span id="oCount">0</span></h3>
           </div>
-        </section>
-        <section id="mode-switch" class="flex-row-center">
-          <button id="easy" type="submit">Easy Mode</button>
-          <p>(3 adjecent in any direction to win)</p>
-          <button id="pro" type="submit">Pro Mode</button>
-          <p>(all across the board to win)</p>
         </section>
       </section>
     </main>
