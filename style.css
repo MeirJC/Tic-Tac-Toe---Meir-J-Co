@@ -1,7 +1,9 @@
 /* Google Fonts */
 /* font-family: 'Audiowide', cursive; */
-
 /* font-family: 'Monoton', cursive; */
+/* ------------------------------------------- */
+/* Favicon and Ninja images taken from Icons8  */
+/* ------------------------------------------- */
 /* css variable to control font size accroding to grid */
 :root {
   --grid-size: 3;
@@ -270,9 +272,10 @@ h3 {
   .player-image>img {
     width: var(--image-size-mobile);
     height: var(--image-size-mobile);
-    width: 10vw;
-    padding: 0.4rem;
+    width: 12vw;
+    padding: 0.5rem;
     margin: clamp(1rem, 2.2vw, 2rem);
+    border-width: 2px;
   }
 
   .player-X-image>img {
