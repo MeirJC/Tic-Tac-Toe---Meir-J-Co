@@ -4,24 +4,63 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&family=Monoton&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./normalize.css" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" defer></script>
     <title>Document</title>
   </head>
   <body>
-    <section class="gridContainer"></section>
-    <button id="reset" type="submit">RESET</button>
-    <button id="three" type="submit">3X3</button>
-    <button id="four" type="submit">4X4</button>
-    <button id="five" type="submit">5X5</button>
-    <button id="six" type="submit">6X6</button>
-    <button id="seven" type="submit">7X7</button>
-    <button id="easy" type="submit">Easy Mode</button>
-    <button id="pro" type="submit">Pro Mode</button>
-    <p class="test">Test Text !!!FSDFSDFSDFSDF</p>
-    <h3 class="score">X Wins <span id="xCount">0</span></h3>
-    <h3 class="score">Tie <span id="tieCount">0</span></h3>
-    <h3 class="score">O Wins <span id="oCount">0</span></h3>
+    <main id="main" class="flex-col-center">
+      <section id="page-conatainer" class="flex-col-center">
+        <header>
+          <h1 class="site-font">Ultimate Tic-Tac-Toe</h1>
+          <nav class="flex-row-center">
+            <p>Grid Size</p>
+            <button id="three" type="submit">3X3</button>
+            <button id="four" type="submit">4X4</button>
+            <button id="five" type="submit">5X5</button>
+            <button id="six" type="submit">6X6</button>
+            <button id="seven" type="submit">7X7</button>
+          </nav>
+        </header>
+        <section id="main-content-container" class="flex-row-center">
+          <div id="main-content-item1" class="player-info">
+            <div class="player-image player-X-image">
+              <img src="./images/blackNinja1flip.png" alt="Player 1 Photo" />
+            </div>
+            <h2 class="player-name">Player X</h2>
+          </div>
+
+          <div id="main-content-item2" class="flex-col-center">
+            <div class="gridContainer"></div>
+            <button id="reset" type="submit">RESET</button>
+            <div id="scores" class="flex-row-center">
+              <h3 class="score">X Wins <span id="xCount">0</span></h3>
+              <h3 class="score">Tie <span id="tieCount">0</span></h3>
+              <h3 class="score">O Wins <span id="oCount">0</span></h3>
+            </div>
+          </div>
+
+          <div id="main-content-item3" class="player-info">
+            <div class="player-image player-O-image">
+              <img src="./images/whiteNinja1.png" alt="Player 2 Photo" />
+            </div>
+            <h2 class="player-name">Player O</h2>
+          </div>
+        </section>
+        <section id="mode-switch" class="flex-row-center">
+          <button id="easy" type="submit">Easy Mode</button>
+          <p>(3 adjecent in any direction to win)</p>
+          <button id="pro" type="submit">Pro Mode</button>
+          <p>(all across the board to win)</p>
+        </section>
+      </section>
+    </main>
   </body>
 </html>

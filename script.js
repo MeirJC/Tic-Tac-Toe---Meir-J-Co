@@ -24,7 +24,10 @@ let OwinCount = 0; // count win for O
 let tieCount = 0; // count ties
 let stopInput = false; // switch to stop input after a win
 let easyMode = false; // switch to toggle easy/pro mode (3 to win vs whole board across)
-// ------------ SCORE KEEP
+//--------------GRID SIZE FOR CSS VAR--------
+
+// ------------ SCORE KEEP-----------------
+
 const xTotal = document.querySelector("#xCount");
 const oTotal = document.querySelector("#oCount");
 const tieTotal = document.querySelector("#tieCount");
@@ -48,6 +51,9 @@ for (let i = 0; i < size ** 2; i++) {
     }
   });
 }
+// set initial css-variable "--grid-size" to 3
+document.documentElement.style.setProperty("--grid-size", "3");
+
 // Reset the board to the initial state - gameBoard for the JS array the the
 // (elementList --> forEach) for the html content
 function resetBoard() {
@@ -99,6 +105,7 @@ threeButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
+  document.documentElement.style.setProperty("--grid-size", "3");
 });
 // 4 BUTTON - Change grid to 4X4 and created a new grid
 const fourButton = document.querySelector("#four");
@@ -109,6 +116,7 @@ fourButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
+  document.documentElement.style.setProperty("--grid-size", "4");
 });
 // 5 BUTTON - Change grid to 5X5 and created a new grid
 const fiveButton = document.querySelector("#five");
@@ -119,6 +127,7 @@ fiveButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
+  document.documentElement.style.setProperty("--grid-size", "5");
 });
 // 6 BUTTON - Change grid to 6X6 and created a new grid
 const sixButton = document.querySelector("#six");
@@ -129,6 +138,7 @@ sixButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
+  document.documentElement.style.setProperty("--grid-size", "6");
 });
 // 7 BUTTON - Change grid to 7X7 and created a new grid
 const sevenButton = document.querySelector("#seven");
@@ -139,18 +149,23 @@ sevenButton.addEventListener("click", () => {
   newBoard(size);
   stopInput = false;
   gameBoard = setBoard(size);
+  document.documentElement.style.setProperty("--grid-size", "7");
 });
 // EASY MODE - (Need only 3 adjecent to win)
 const easyButton = document.querySelector("#easy");
 easyButton.addEventListener("click", () => {
   easyMode = true;
   console.log("easy mode on");
+  easyButton.style.background = "#a4a4a4";
+  proButton.style.background = "#c4c4c4";
 });
 // PRO MODE - (Need full row to win)
 const proButton = document.querySelector("#pro");
 proButton.addEventListener("click", () => {
   easyMode = false;
   console.log("pro mode on");
+  easyButton.style.background = "#c4c4c4";
+  proButton.style.background = "#a4a4a4";
 });
 //------------------------------------------------------------------------
 

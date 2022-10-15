@@ -1,36 +1,196 @@
+/* Google Fonts */
+/* font-family: 'Audiowide', cursive; */
+
+/* font-family: 'Monoton', cursive; */
+/* css variable to control font size accroding to grid */
+:root {
+  --grid-size: 3;
+  --grid-gap-size: 8px;
+}
+
+/* ------------------------ */
+/* General initialization */
+/* ------------------------ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* outline: 2px solid limegreen; */
+  font-family: 'Audiowide', cursive;
 }
 
-.full-page-container {
+/* make basic rem units responsive to width */
+html {
+  font-size: calc(15px + 0.390625vw);
+}
+
+body {
+  background: #e0e0e0;
+}
+
+/* Main content containers */
+#main {
   width: 100vw;
   max-width: 100%;
   height: 100vh;
+  background-color: #e0e0e0;
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%2321547c' fill-opacity='0.61' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
+#page-conatainer {
+  width: calc(100vw - 4rem);
+  height: calc(100vh - 4rem);
+  /* outline: 2px solid red; */
+  /* ----- Neumoprphisem ----- */
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: -20px 20px 60px #a8a8a8,
+    20px -20px 60px #ffffff;
+}
+
+/* -------------------------- */
+/* general and utility clases */
+/* -------------------------- */
 .gridContainer {
   width: 50vh;
   height: 50vh;
-  border: 2px solid black;
+  margin: 0.5rem;
   display: grid;
-  gap: 10px;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: var(--grid-gap-size);
+  grid-template: repeat(var(--grid-size), 1fr) / repeat(var(--grid-size), 1fr);
   grid-auto-flow: row;
   /* or 'row', 'row dense', 'column dense' */
   text-align: center;
   padding: 10px;
   background-color: black;
-  border-radius: 12px;
+
+  /* ----- Neumoprphisem ----- */
+  border-radius: 1.4rem;
+  background: #e0e0e0;
+  box-shadow: -20px 20px 60px #a8a8a8,
+    20px -20px 60px #ffffff;
 }
 
 .grid-item {
-  border: 4px solid red;
-  background-color: cornflowerblue;
-  border-radius: 8px;
+  border-radius: 1rem;
+  background: #e0e0e0;
+  box-shadow: inset -20px 20px 60px #a8a8a8,
+    inset 20px -20px 60px #ffffff;
+  font-family: 'Monoton', cursive;
+  /* center fonts */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc((50vh/ (1.5*var(--grid-size))));
 }
 
-.test {
-  font-size: clamp(0.8rem, 3vh, 2rem);
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.flex-row-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* -------------- */
+/* elements */
+/* -------------- */
+header {
+  width: calc(100% - 6rem);
+  text-align: center;
+}
+
+
+header>h1 {
+  margin: 0;
+  /* animatecc neuText */
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  color: #494949;
+  text-shadow: 4px -4px 8px #a8a8a8,
+    -4px 4px 8px #ffffff;
+}
+
+button,
+h3 {
+  /* ----- Neumoprphisem ----- */
+
+  margin: 0.2rem 0.6rem;
+  padding: 0.15rem 0.25rem;
+  box-shadow: -20px 20px 60px #a8a8a8,
+    20px -20px 60px #ffffff;
+  text-align: center;
+  /* ----- Neumoprphisem ----- */
+  border-radius: clamp(5px, 1vw, 8px);
+  background: #c4c4c4;
+  box-shadow: -20px 20px 60px #a8a8a8,
+    20px -20px 60px #ffffff;
+
+}
+
+.player-O-image>img {
+  background: #3d3d3d;
+  border: 4px solid rgb(223, 229, 226);
+  outline: 3px solid rgba(81, 94, 245, 0.85);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  padding: 0.6rem;
+  margin: clamp(1rem, 2.2vw, 2rem);
+  -webkit-box-shadow: 0px 0px 30px 15px rgba(103, 245, 81, 0.85);
+  -moz-box-shadow: 0px 0px 30px 15px rgba(103, 245, 81, 0.85);
+  box-shadow: 0px 0px 30px 15px rgba(103, 245, 81, 0.85);
+}
+
+.player-X-image>img {
+  background: #e0e0e0;
+  border: 4px solid #1f1f1f;
+  outline: 3px solid rgba(103, 245, 81, 0.85);
+  border-radius: 70% 30% 30% 70% / 30% 30% 70% 70%;
+  padding: 0.6rem;
+  margin: clamp(1rem, 2.2vw, 2rem);
+  -webkit-box-shadow: 0px 0px 30px 15px rgba(81, 94, 245, 0.85);
+  -moz-box-shadow: 0px 0px 30px 15px rgba(81, 94, 245, 0.85);
+  box-shadow: 0px 0px 30px 15px rgba(81, 94, 245, 0.85);
+}
+
+.player-info {
+  /* ----- Neumoprphisem ----- */
+  border-radius: clamp(0.6rem, 1.8vw, 1.2rem);
+  background: #d0d0d0;
+  box-shadow: -20px 20px 60px #a8a8a8,
+    20px -20px 60px #ffffff;
+  text-align: center;
+  margin: clamp(1rem, 3vw, 2rem);
+  padding: 0.35rem;
+}
+
+#reset {
+  margin-bottom: 0.5rem;
+}
+
+#pro {
+  background: #a4a4a4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----- Neumoprphisem ----- */
+/* border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow: -20px 20px 60px #a8a8a8,
+    20px -20px 60px #ffffff; */
