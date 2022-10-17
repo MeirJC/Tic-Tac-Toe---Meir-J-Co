@@ -9,7 +9,7 @@
     --grid-size: 3;
     --grid-gap-size: 8px;
     --grid-dimensions: clamp(240px, 50vh, 800px);
-    --grid-dimensions-mobile: clamp(180px, 65vw, 700px);
+    --grid-dimensions-mobile: clamp(180px, 84vw, 750px);
     --image-size-mobile: clamp(2.4rem, 14vw, 4rem);
     --player-x-color: #006bd0;
     --player-o-color: #E71D36;
