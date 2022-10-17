@@ -1,37 +1,55 @@
-// TO-DO is marked with !#! - UPDATES will be marked with @!@
-// !#! game will end in a tie when counter = size*size @!@ DONE added to the inputXO function to be checked after each input
-// !#! when setboard called again game board reset but doesnt update display @!@ DONE with the resetBoard funtion
-// !#! Reset button @!@ DONE Added and tested
-// !#! display winner
-// !#! display tie @!@ DONE
-// !#! give multiple board size option selector/ buttons @!@ DONE
+// _.~"(_.~"(_.~"(_.~"(_.~"( ( - Ultimate Tic-Tac-Toe - ) ) _.~"(_.~"(_.~"(_.~"(_.~"(
+// Project by Meir Josef Cohen
+// Full project files can be found at : https://github.com/MeirJC/Tic-Tac-Toe---Meir-J-Co
+//-------------------- Project Description ------------------
+// This is not your grandmothers tic-tac-toe! ¯\_(ツ)_/¯
+// this game has 2 modes - Easy Mode and Pro Mode
+// - Easy Mode is defined by getting 3 adjacent strikes in any direction (row, col or horizontal - both ways)
+// while Hard Mode (which is the default one) is required to get the full line across.
+// this gets harder and harder to accomplish while the board gets bigger
+//
+// Beside Game modes, Score (and tie) counters and changeable board size there's another feature that I hardly saw
+// in any of those common tic-tac-toe builds. The player who wins is the player to start in
+// the next round...
+//
+// have fun playing
+//
+// \m/ (>.<) \m/
+//
+// Meir J C
 
 //------------------------------------------------------------------------
-//==================INITAL ENVIORMENT SETUP===============================
+//==================INITIAL ENVIRONMENT SETUP===============================
 //------------------------------------------------------------------------
 // grid - grid container that holds the game board
 // size - game board dimensions (for both dimension X/Y axis)
-// counter - turn counter. changes player by binary seletion of counter%2
+// counter - turn counter. changes player by binary selection of counter%2
 //------------------------------------------------------------------------
+// Board Settings
+const messageBox = document.querySelector("#messageBox");
 const grid = document.querySelector(".gridContainer");
 let size = 3; //initial Board size
 let counter = 0; // keep turn count
 let gameBoard = setBoard(size); // set the JS game board 2D array
-let playerA = "X"; // player 1 & 2 charaters. would switch in case of wining so winner start next game
+// Player and Player Scores
+let playerA = "X"; // player 1 & 2 charters. would switch in case of wining so winner start next game
 let playerB = "O";
 let XwinCount = 0; // count win for X
 let OwinCount = 0; // count win for O
 let tieCount = 0; // count ties
-let stopInput = false; // switch to stop input after a win
-let easyMode = false; // switch to toggle easy/pro mode (3 to win vs whole board across)
-//--------------GRID SIZE FOR CSS VAR--------
-
-// ------------ SCORE KEEP-----------------
-
 const xTotal = document.querySelector("#xCount");
 const oTotal = document.querySelector("#oCount");
 const tieTotal = document.querySelector(".tieCount");
+//tieTotalMobile -on mobile different element is being displayed in different location
 const tieTotalMobile = document.querySelector(".tieCountMobile");
+// Game Modes
+let stopInput = false; // switch to stop input after a win
+let easyMode = false; // switch to toggle easy/pro mode (3 to win vs whole board across)
+currentStatus(playerA, "start");
+//------------------------------------------------------------------------
+//==================INITIAL GAME-BOARD INITIALIZATION========================
+//------------------------------------------------------------------------
+
 // setting the CSS Grid board dimension by the "size" parameter
 grid.setAttribute(
   "style",
@@ -45,23 +63,25 @@ for (let i = 0; i < size ** 2; i++) {
   element.setAttribute("id", i);
   element.setAttribute("class", "grid-item");
   grid.append(element);
-  element.addEventListener("click", (e) => {
-    console.log(`hi i am ${i}`);
+  element.addEventListener("click", () => {
+    // console.log(`hi i am ${i}`);
     if (element.innerText === "") {
       inputXO(i);
     }
   });
 }
-// set initial css-variable "--grid-size" to 3
+// set initial css-variable "--grid-size" to 3 - This also changes font size by grid size
 document.documentElement.style.setProperty("--grid-size", "3");
 
-// Reset the board to the initial state - gameBoard for the JS array the the
+// Reset the board to the initial state - gameBoard for the JS array the
 // (elementList --> forEach) for the html content
 function resetBoard() {
   gameBoard = setBoard(size);
+
   let elementList = document.querySelectorAll(".grid-item");
   elementList.forEach((element) => (element.innerText = ""));
   counter = 0;
+  currentStatus(playerA, "start");
 }
 // Clear (delete) all grid items - needed when changing size of the board
 function deleteAllGridChildren() {
@@ -79,7 +99,7 @@ function newBoard(size) {
     element.setAttribute("id", i);
     element.setAttribute("class", "grid-item");
     grid.append(element);
-    element.addEventListener("click", (e) => {
+    element.addEventListener("click", () => {
       console.log(`hi i am ${i}`);
       if (element.innerText === "") {
         inputXO(i);
@@ -96,7 +116,8 @@ resetButton.addEventListener("click", () => {
   resetBoard();
   stopInput = false;
 });
-// RESET BUTTON MOBILE- Reset the game board
+// RESET BUTTON MOBILE - Reset the game board
+// on mobile different html element is being displayed on different location
 const resetButtonMobile = document.querySelector("#reset-mobile");
 resetButtonMobile.addEventListener("click", () => {
   resetBoard();
@@ -104,7 +125,6 @@ resetButtonMobile.addEventListener("click", () => {
 });
 // 3 BUTTON - Change grid to 3X3 and created a new grid
 const threeButton = document.querySelector("#three");
-
 threeButton.addEventListener("click", () => {
   deleteAllGridChildren();
   size = 3;
@@ -158,7 +178,8 @@ sevenButton.addEventListener("click", () => {
   gameBoard = setBoard(size);
   document.documentElement.style.setProperty("--grid-size", "7");
 });
-// EASY MODE - (Need only 3 adjecent to win)
+//---------------GAME MODES BUTTONS---------------
+// EASY MODE - (Need only 3 adjacent to win)
 const easyButton = document.querySelector("#easy");
 easyButton.addEventListener("click", () => {
   easyMode = true;
@@ -175,11 +196,9 @@ proButton.addEventListener("click", () => {
   proButton.style.background = "#a4a4a4";
 });
 //------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
 //=============================TESTS======================================
 //------------------------------------------------------------------------
-//All the funcions to check win status by scenarios (row/column/both diagonal)
+//All the functions to check win status by scenarios (row/column/both diagonal)
 //------------------------------------------------------------------------
 //Rows
 function checkRows(board) {
@@ -207,35 +226,26 @@ function checkCols(board) {
 }
 //Diagonal L to R
 function diagonalLR(board) {
-  let test = board.every((num, j, arr) => {
+  return board.every((num, j, arr) => {
     return arr[0][0] === arr[j][j] && arr[0][0] !== "";
   });
-  if (test) {
-    return true;
-  }
-  return false;
 }
 //Diagonal R to L
 function diagonalRL(board) {
-  let test = board.every((num, j, arr) => {
+  return board.every((num, j, arr) => {
     return (
       arr[0][arr.length - 1] === arr[j][arr.length - 1 - j] &&
       arr[0][arr.length - 1] !== ""
     );
   });
-  if (test) {
-    return true;
-  }
-  return false;
 }
+//------------------------------------------------------------------------
+//============================ TESTS ONLY 3 ITEMS ========================
+//------------------------------------------------------------------------
+//All the functions to check win status by scenarios (row/column/both diagonal)
+//------------------------------------------------------------------------
 
-//------------------------------------------------------------------------
-//=============================TESTS ONLY 3 ++++==========================
-//------------------------------------------------------------------------
-//All the funcions to check win status by scenarios (row/column/both diagonal)
-//------------------------------------------------------------------------
-
-// ROWS (ONLY ADJECENT 3)
+// ROWS (ONLY ADJACENT 3)
 function checkRows3(board) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board.length - 2; j++) {
@@ -251,7 +261,7 @@ function checkRows3(board) {
   return false;
 }
 
-// COLS (ONLY ADJECENT 3)
+// COLS (ONLY ADJACENT 3)
 function checkCols3(board) {
   for (let i = 0; i < board.length - 2; i++) {
     for (let j = 0; j < board.length; j++) {
@@ -267,7 +277,7 @@ function checkCols3(board) {
   return false;
 }
 
-//Diagonal L to R (ONLY ADJECENT 3)
+//Diagonal L to R (ONLY ADJACENT 3)
 function diagonalLR3(board) {
   for (let i = 0; i < board.length - 2; i++) {
     for (let j = 0; j < board.length - 2; j++) {
@@ -284,7 +294,7 @@ function diagonalLR3(board) {
   return false;
 }
 
-//Diagonal R to L (ONLY ADJECENT 3)
+//Diagonal R to L (ONLY ADJACENT 3)
 function diagonalRL3(board) {
   for (let i = 0; i < board.length - 2; i++) {
     for (let j = 0; j < board.length - 2; j++) {
@@ -307,7 +317,7 @@ function diagonalRL3(board) {
 //------------------------------------------------------------------------
 // setBoard - creating the game board array
 // turnSwitch - switching the player and the output ("X"/"O") by the counter odd/even
-// inputXO - inputing the current value ("X"/"O") to the html and the javascript array
+// inputXO - inputting the current value ("X"/"O") to the html and the javascript array
 //------------------------------------------------------------------------
 
 function setBoard(size) {
@@ -318,6 +328,7 @@ function setBoard(size) {
       board[i].push("");
     }
   }
+
   return board;
 }
 function turnSwitch(count) {
@@ -325,11 +336,46 @@ function turnSwitch(count) {
   return count % 2 === 0 ? playerA : playerB;
 }
 
+function currentStatus(player, status) {
+  if (status === "inProgress") {
+    if (player === "X") {
+      messageBox.innerHTML = `Its O Turn`;
+      messageBox.setAttribute("class", "score glowO");
+    } else {
+      messageBox.innerHTML = `Its X Turn`;
+      messageBox.setAttribute("class", "score glowX");
+    }
+  }
+  if (status === "win") {
+    if (player === "X") {
+      messageBox.innerHTML = `X Wins!`;
+      messageBox.setAttribute("class", "score glowX animate__heartBeat");
+    } else {
+      messageBox.innerHTML = `O Wins!`;
+      messageBox.setAttribute("class", "score glowO animate__heartBeat");
+    }
+  }
+  if (status === "tie") {
+    messageBox.innerHTML = `It's A Tie!`;
+    messageBox.setAttribute("class", "score glowTie");
+  }
+  if (status === "start") {
+    if (player === "X") {
+      messageBox.innerHTML = `Let's go, It's X turn`;
+      messageBox.setAttribute("class", "score glowX");
+    } else {
+      messageBox.innerHTML = `Let's go, It's O turn`;
+      messageBox.setAttribute("class", "score glowO ");
+    }
+  }
+}
 function inputXO(i) {
   if (stopInput === false) {
     let cell = document.getElementById(`${i}`);
     let player = turnSwitch(counter);
     cell.innerText = player;
+    cell.setAttribute("class", `glow${player} grid-item animate__bounceIn`);
+    currentStatus(player, "inProgress");
     if (cell.innerText !== "") {
       for (let j = 0; j < size; j++) {
         for (let k = 0; k < size; k++) {
@@ -347,26 +393,28 @@ function inputXO(i) {
           playerB = "O";
           XwinCount++;
           xTotal.innerText = XwinCount;
+          currentStatus(player, "win");
         } else {
           playerA = "O";
           playerB = "X";
           OwinCount++;
           oTotal.innerText = OwinCount;
+          currentStatus(player, "win");
         }
       } else if (counter === size ** 2) {
         console.log("TIE!!!");
         tieCount++;
         tieTotal.innerText = tieCount;
         tieTotalMobile.innerText = tieCount;
+        currentStatus(player, "tie");
       }
     }
   }
 }
 //------------------------------------------------------------------------
-//==============================GAMEPLAY==================================
+//=======================SENDING TESTS FOR WIN/TIE========================
 //------------------------------------------------------------------------
-// winStatus - sending the gamrboard to all the tests
-
+// winStatus - sending the game board to all the tests by Game Mode
 //------------------------------------------------------------------------
 function winStatus(board) {
   let tests = [checkRows, checkCols, diagonalLR, diagonalRL];
@@ -382,7 +430,8 @@ function winStatus(board) {
   }
   return isWin;
 }
-
 //------------------------------------------------------------------------
 //========================================================================
 //------------------------------------------------------------------------
+
+// If you have done the reading this far, you are awesome :) here's a butterfly for you  Ƹ̵̡Ӝ̵̨̄Ʒ

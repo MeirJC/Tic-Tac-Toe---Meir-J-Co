@@ -17,16 +17,20 @@
     />
     <link rel="stylesheet" href="./normalize.css" />
     <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <script src="./script.js" defer></script>
     <title>Ultimate Tic-Tac-Toe</title>
   </head>
   <body>
     <main id="main" class="flex-col-center">
       <section id="page-conatainer" class="flex-col-center">
-        <header>
+        <header id="header" class="flex-col-center">
           <h1 class="site-font">Ultimate Tic&#8209;Tac&#8209;Toe</h1>
 
-          <nav class="flex-row-center">
+          <nav class="flex-row-center" id="top-nav">
             <p>Grid Size</p>
             <button id="three" type="submit">3X3</button>
             <button id="four" type="submit">4X4</button>
@@ -49,10 +53,10 @@
             <h2 class="player-name">Player X</h2>
             <h3 class="score">X Wins <span id="xCount">0</span></h3>
           </div>
-
           <div id="main-content-item2" class="flex-col-center">
             <div class="gridContainer"></div>
             <!-- ----------DESKTOP RESET BUTTON AND TIE COUNT---------- -->
+            <h3 id="messageBox" class="score"></h3>
             <button id="reset" type="submit" class="mobile-hide">RESET</button>
             <div id="scores" class="flex-row-center mobile-hide">
               <h3 class="score">Tie <span class="tieCount">0</span></h3>
