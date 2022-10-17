@@ -12,10 +12,10 @@ This is Ultimate Tic-Tac-Toe
 
 Board size can be changed to sizes varying from 3 by 3 grids to 7 by 7 grids, and what's also spacial comparing the regular versions is that this game has 2 modes:
 
-- Pro Mode (which is the default) - This mode require you to get the full line across the grid (in any direction you wish - row/ column / both of the diagonal).
+- **Pro Mode** (default) - This mode require you to get the full line across the grid (in any direction you wish - row/ column / both of the diagonal).
   this gets harder and harder to accomplish while the board gets bigger...
 
-- Easy Mode - in this mode you need to have only 3 adjacent makes (in any direction of course)
+- **Easy Mode** - in this mode you need to have only 3 adjacent makes (in any direction of course)
 
 Another thing to keep in mind is that the WINNER 🏆 gets to start first in the next round.
 
