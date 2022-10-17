@@ -24,7 +24,7 @@ Another thing to keep in mind is that the winner gets to start in the next round
 I've had a really great time building this project and I hope you will enjoy it 😎
 many logic and math games involved to getting just the right indexes. and also manipulating the DOM is many ways was a new challenge.
 
-ive tried to insert much documentation in the code, but if this interesting and may have any questions occurs, feel free to reach me here or at my [LinkedIn](linkedin.com/in/meirjcohen)
+ive tried to insert much documentation in the code, but if this interesting and may have any questions occurs, feel free to reach me here or at my [LinkedIn](https://linkedin.com/in/meirjcohen)
 
 ### have fun playing
 
