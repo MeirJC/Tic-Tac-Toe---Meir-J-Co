@@ -322,7 +322,7 @@ h3 {
     .grid-item {
         border-radius: clamp(0.3rem, 2.2vh, 0.6rem);
         /* changing font size according to grid size css variable */
-        font-size: calc((50vh / (2.75 * var(--grid-size))));
+        font-size: calc((50vh / (2.2 * var(--grid-size))));
     }
 
     .player-info .player-info {
