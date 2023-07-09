@@ -7,6 +7,7 @@
 ## ¯\\\_(ツ)\_/¯
 
 ---
+> [Live preview](https://tic-tac-toe-meirjc.netlify.app/)
 
 This is Ultimate Tic-Tac-Toe
 
